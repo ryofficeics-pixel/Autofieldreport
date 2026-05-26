@@ -37,6 +37,7 @@ Branch: `production-saas-rebuild`
 - `npm.cmd install` -> success, 0 vulnerabilities
 - `npm.cmd run verify:auth-flow` -> passed
 - `npm.cmd run verify:baseline` -> passed
+- `npm.cmd run verify:export-parity` -> passed (static parity guard)
 - `npm.cmd run check:env` -> failed due missing required public/server env
 - `npm.cmd run verify:rls-smoke` -> blocked (`SUPABASE_DB_URL` missing)
 

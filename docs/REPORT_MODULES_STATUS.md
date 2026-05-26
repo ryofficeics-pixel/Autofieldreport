@@ -24,6 +24,7 @@
 - Manual token input was replaced with Supabase login/logout + persisted session + active-company selector.
 - Project selector is loaded from backend per active company through `/api/projects-list`.
 - Online event now triggers queue replay attempt in addition to manual sync button.
+- Static export parity regression check is available via `npm.cmd run verify:export-parity`.
 
 ## Remaining work
 

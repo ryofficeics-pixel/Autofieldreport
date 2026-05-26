@@ -8,7 +8,8 @@
     "bootstrap:first-admin": "node scripts/bootstrap-first-admin.mjs",
     "verify:baseline": "node scripts/verify-baseline.mjs",
     "verify:rls-smoke": "node scripts/run-rls-smoke.mjs",
-    "verify:auth-flow": "node scripts/verify-auth-flow.mjs"
+    "verify:auth-flow": "node scripts/verify-auth-flow.mjs",
+    "verify:export-parity": "node scripts/verify-export-parity.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4"

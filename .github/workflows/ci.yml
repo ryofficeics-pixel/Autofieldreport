@@ -30,3 +30,6 @@ jobs:
 
       - name: Verify baseline
         run: npm run verify:baseline
+
+      - name: Verify export parity
+        run: npm run verify:export-parity
