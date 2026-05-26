@@ -35,6 +35,7 @@ Branch: `production-saas-rebuild`
 ## Command evidence
 
 - `npm.cmd install` -> success, 0 vulnerabilities
+- `npm.cmd run verify:baseline` -> passed
 - `npm.cmd run check:env` -> failed due missing required public/server env
 
 ## Current blockers

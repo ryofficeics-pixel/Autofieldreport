@@ -52,5 +52,6 @@ Implement queue support for media upload and status transitions, then run live e
 
 ```bash
 npm.cmd install
+npm.cmd run verify:baseline
 npm.cmd run check:env
 ```

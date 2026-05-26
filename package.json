@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "check:env": "node scripts/check-env.mjs",
-    "bootstrap:first-admin": "node scripts/bootstrap-first-admin.mjs"
+    "bootstrap:first-admin": "node scripts/bootstrap-first-admin.mjs",
+    "verify:baseline": "node scripts/verify-baseline.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4"
