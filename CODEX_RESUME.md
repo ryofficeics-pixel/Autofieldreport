@@ -21,6 +21,7 @@ with partial progress in stages 03, 04, 05, 06, 07, 10, and 11.
 - `api/reports-save.js`, `api/reports-transition.js`, `api/reports-list.js` - report CRUD/status/list APIs
 - `ui/offline-queue.js` - IndexedDB queue baseline
 - `tools/daily-report`, `tools/weekly-report`, `tools/survey-report`, `tools/progress-report` - module UI baseline pages
+- `tools/report-export.js` - shared preview/print renderer used by all core report pages
 - `docs/module-contracts/*` - shared and per-module integration contracts
 - `docs/MEDIA_UPLOAD_API.md`, `docs/OFFLINE_QUEUE_STATUS.md` - implementation notes
 - `ENV_SETUP.md`, `VERCEL_PRODUCTION_ENV_SETUP.md`, `DEPLOYMENT.md`, `.env.example` - env/deploy safety docs
@@ -30,7 +31,7 @@ with partial progress in stages 03, 04, 05, 06, 07, 10, and 11.
 1. No live Supabase project values configured in environment yet.
 2. Secure upload APIs are implemented but not yet wired from report modules.
 3. Offline queue exists but is not yet connected to real report/media API operations.
-4. Report export/PDF parity runtime not implemented.
+4. Report export exists as baseline print flow, but parity testing with real data/media is pending.
 
 ## Required env vars
 
@@ -45,7 +46,7 @@ with partial progress in stages 03, 04, 05, 06, 07, 10, and 11.
 
 ## Next exact action
 
-Implement Stage 9 shared preview/PDF export path, then connect report pages to secure media upload and offline sync queue.
+Connect report forms to secure media upload endpoints and persist offline queue actions to real report/media API sync flow.
 
 ## Verification commands run
 

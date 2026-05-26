@@ -54,8 +54,8 @@
         </div>
       </div>
       <div>
-        <label for="payload">Payload JSON</label>
-        <textarea id="payload">{"summary":"", "notes":""}</textarea>
+        <label for="payload">Payload JSON (use photos: [{"url":"...","caption":"..."}] for export preview)</label>
+        <textarea id="payload">{"summary":"", "notes":"", "photos":[]}</textarea>
       </div>
       <div>
         <label for="rejectionReason">Rejection Reason (only for reject)</label>
@@ -67,8 +67,15 @@
         <button id="btnApprove" class="btn-secondary" type="button">Approve</button>
         <button id="btnReject" class="btn-secondary" type="button">Reject</button>
         <button id="btnLoad" class="btn-secondary" type="button">Load Recent</button>
+        <button id="btnPreview" class="btn-secondary" type="button">Render Preview</button>
+        <button id="btnPrint" class="btn-secondary" type="button">Print/PDF</button>
       </div>
       <div id="status" class="status">Ready.</div>
+    </section>
+
+    <section class="container card">
+      <h2>Preview (shared layout contract)</h2>
+      <div id="preview" class="status">No preview rendered.</div>
     </section>
 
     <section class="container card">

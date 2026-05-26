@@ -13,7 +13,7 @@ Branch: `production-saas-rebuild`
 - Stage 6 Offline queue/sync: `PARTIAL`
 - Stage 7 Report modules: `PARTIAL`
 - Stage 8 Module contracts: `DONE`
-- Stage 9 PDF parity: `NOT VERIFIED`
+- Stage 9 PDF parity: `PARTIAL`
 - Stage 10 Mobile/performance: `PARTIAL` (UI shell responsiveness only)
 - Stage 11 Env/deploy safety: `PARTIAL`
 - Stage 12 Full verification: `NOT VERIFIED`
@@ -28,7 +28,7 @@ Branch: `production-saas-rebuild`
 | Reports | PARTIAL | `api/reports-save.js`, `api/reports-transition.js`, `api/reports-list.js`, `tools/*` report pages | Daily/weekly/survey/progress baseline wired; auth token entry and full QA pending |
 | Media upload | PARTIAL | `api/cloudinary-signature.js`, `api/media-register.js`, `docs/MEDIA_UPLOAD_API.md` | Endpoints added, not integrated with real module forms |
 | Offline sync | PARTIAL | `ui/offline-queue.js`, queue panel in `index.html` | IndexedDB queue baseline exists, module/API wiring pending |
-| PDF/export | NOT VERIFIED | No export runtime code yet | Requires shared preview/export renderer |
+| PDF/export | PARTIAL | `tools/report-export.js` shared preview/print renderer | Print/PDF baseline exists, strict parity validation pending |
 | Mobile UI | PARTIAL | `index.html`, `ui/styles.css` responsive layout | Real module forms not implemented |
 | Build/deploy | BLOCKED | `npm run check:env` failed | Required env vars not set |
 
@@ -41,4 +41,4 @@ Branch: `production-saas-rebuild`
 
 1. Missing env values for Supabase/Cloudinary.
 2. No module-level integration with secure upload endpoints yet.
-3. PDF export parity still not implemented.
+3. Strict preview-vs-PDF parity is not yet validated with real report media sets.

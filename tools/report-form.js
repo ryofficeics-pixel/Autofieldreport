@@ -1,3 +1,5 @@
+import { openPrintWindow, renderReportHtml } from "./report-export.js";
+
 const app = document.getElementById("app");
 const reportType = app?.dataset.reportType || "daily";
 const title = app?.dataset.reportTitle || "Report";
@@ -16,9 +18,12 @@ const els = {
   btnSubmit: document.getElementById("btnSubmit"),
   btnApprove: document.getElementById("btnApprove"),
   btnReject: document.getElementById("btnReject"),
+  btnPreview: document.getElementById("btnPreview"),
+  btnPrint: document.getElementById("btnPrint"),
   btnLoad: document.getElementById("btnLoad"),
   status: document.getElementById("status"),
-  listBody: document.getElementById("listBody")
+  listBody: document.getElementById("listBody"),
+  preview: document.getElementById("preview")
 };
 
 if (els.pageTitle) {
@@ -44,6 +49,19 @@ function safeJson(value) {
   } catch {
     return null;
   }
+}
+
+function buildPreviewInput() {
+  const data = safeJson(els.payload.value);
+  if (data === null) throw new Error("Payload JSON is invalid");
+  return {
+    reportType,
+    companyId: els.companyId.value.trim(),
+    projectId: els.projectId.value.trim(),
+    reportDate: els.reportDate.value,
+    status: "draft",
+    data
+  };
 }
 
 async function callApi(path, method, body = null) {
@@ -135,4 +153,24 @@ els.btnReject?.addEventListener("click", async () => {
 });
 els.btnLoad?.addEventListener("click", async () => {
   try { await loadReports(); setStatus("Loaded reports."); } catch (e) { setStatus(e.message, true); }
+});
+
+els.btnPreview?.addEventListener("click", () => {
+  try {
+    const html = renderReportHtml(buildPreviewInput());
+    els.preview.innerHTML = html;
+    setStatus("Preview rendered.");
+  } catch (e) {
+    setStatus(e.message, true);
+  }
+});
+
+els.btnPrint?.addEventListener("click", () => {
+  try {
+    const html = renderReportHtml(buildPreviewInput());
+    openPrintWindow(html);
+    setStatus("Print/PDF window opened.");
+  } catch (e) {
+    setStatus(e.message, true);
+  }
 });
