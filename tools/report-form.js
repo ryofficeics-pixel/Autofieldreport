@@ -30,6 +30,7 @@ const els = {
   reportId: document.getElementById("reportId"),
   companyId: document.getElementById("companyId"),
   projectId: document.getElementById("projectId"),
+  btnReloadProjects: document.getElementById("btnReloadProjects"),
   locationId: document.getElementById("locationId"),
   reportDate: document.getElementById("reportDate"),
   payload: document.getElementById("payload"),
@@ -108,17 +109,73 @@ function requireActiveCompany() {
   return activeCompanyId;
 }
 
+function activeProjectStorageKey(companyId) {
+  return `afr.activeProjectId.${companyId}`;
+}
+
+async function refreshQueueSummary() {
+  try {
+    const summary = await getQueueSummary();
+    if (els.queueSummary) {
+      els.queueSummary.textContent =
+        `queue total=${summary.total} pending=${summary.pending} syncing=${summary.syncing} ` +
+        `synced=${summary.synced} failed=${summary.failed} conflict=${summary.conflict}`;
+    }
+  } catch (error) {
+    if (els.queueSummary) els.queueSummary.textContent = `queue error: ${error.message}`;
+  }
+}
+
+async function callApi(path, method, body = null) {
+  const token = requireSessionToken();
+  const res = await fetch(path, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(`${data.code || "error"}: ${data.message || "request failed"}`);
+  }
+  return data;
+}
+
+async function loadProjectsForActiveCompany() {
+  const companyId = getActiveCompanyId(authState);
+  if (!companyId || !els.projectId) return;
+
+  try {
+    const result = await callApi(`/api/projects-list?companyId=${encodeURIComponent(companyId)}`, "GET");
+    const projects = result.projects || [];
+    const stored = localStorage.getItem(activeProjectStorageKey(companyId));
+    const current = els.projectId.value || stored || "";
+
+    const options = projects.map((p) => `
+      <option value="${p.id}" ${p.id === current ? "selected" : ""}>
+        ${p.name} (${p.code || "-"}) - ${p.project_status}
+      </option>
+    `).join("");
+    els.projectId.innerHTML = `<option value="">Select project</option>${options}`;
+
+    if (!els.projectId.value && current) els.projectId.value = current;
+    if (els.projectId.value) {
+      localStorage.setItem(activeProjectStorageKey(companyId), els.projectId.value);
+    }
+  } catch (error) {
+    setStatus(`Project load warning: ${error.message}`, true);
+  }
+}
+
 function renderAuthState() {
   const user = authState?.user || null;
   const memberships = authState?.memberships || [];
   const activeCompanyId = getActiveCompanyId(authState);
 
   if (els.authInfo) {
-    if (!user) {
-      els.authInfo.textContent = "Not logged in.";
-    } else {
-      els.authInfo.textContent = `Logged in as ${user.email || user.id}`;
-    }
+    els.authInfo.textContent = user ? `Logged in as ${user.email || user.id}` : "Not logged in.";
   }
 
   if (els.activeCompany) {
@@ -143,27 +200,13 @@ function renderAuthState() {
       : "Permissions: -";
   }
 
-  if (els.companyId) {
-    els.companyId.value = activeCompanyId || "";
-  }
+  if (els.companyId) els.companyId.value = activeCompanyId || "";
 
   const locked = !user || !activeCompanyId;
   actionButtons.forEach((btn) => { btn.disabled = locked; });
+  if (els.btnReloadProjects) els.btnReloadProjects.disabled = locked;
   if (els.btnLogout) els.btnLogout.disabled = !user;
   if (els.btnLogin) els.btnLogin.disabled = Boolean(user);
-}
-
-async function refreshQueueSummary() {
-  try {
-    const summary = await getQueueSummary();
-    if (els.queueSummary) {
-      els.queueSummary.textContent =
-        `queue total=${summary.total} pending=${summary.pending} syncing=${summary.syncing} ` +
-        `synced=${summary.synced} failed=${summary.failed} conflict=${summary.conflict}`;
-    }
-  } catch (error) {
-    if (els.queueSummary) els.queueSummary.textContent = `queue error: ${error.message}`;
-  }
 }
 
 function buildPreviewInput() {
@@ -177,23 +220,6 @@ function buildPreviewInput() {
     status: "draft",
     data
   };
-}
-
-async function callApi(path, method, body = null) {
-  const token = requireSessionToken();
-  const res = await fetch(path, {
-    method,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
-    },
-    body: body ? JSON.stringify(body) : undefined
-  });
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error(`${data.code || "error"}: ${data.message || "request failed"}`);
-  }
-  return data;
 }
 
 async function saveDraft() {
@@ -233,6 +259,7 @@ async function saveDraft() {
 async function transition(nextStatus) {
   const reportId = els.reportId.value.trim();
   if (!reportId) throw new Error("reportId is required for status transition");
+
   const body = {
     reportId,
     companyId: requireActiveCompany(),
@@ -352,6 +379,15 @@ async function syncQueuedActions() {
   await refreshQueueSummary();
 }
 
+async function syncQueuedActionsSafe() {
+  try {
+    await syncQueuedActions();
+    setStatus("Queued sync completed.");
+  } catch (error) {
+    setStatus(`Queued sync failed: ${error.message}`, true);
+  }
+}
+
 async function initAuthFlow() {
   authState = await createAuthState();
 
@@ -361,9 +397,11 @@ async function initAuthFlow() {
     setStatus(`Auth context load warning: ${error.message}`, true);
   }
   renderAuthState();
+  await loadProjectsForActiveCompany();
 
   onAuthStateChanged(authState, () => {
     renderAuthState();
+    loadProjectsForActiveCompany();
   });
 }
 
@@ -375,6 +413,7 @@ els.btnLogin?.addEventListener("click", async () => {
     await signInWithPassword(authState, email, password);
     await refreshAuthContext(authState);
     renderAuthState();
+    await loadProjectsForActiveCompany();
     setStatus("Login successful.");
   } catch (error) {
     setStatus(error.message, true);
@@ -395,31 +434,44 @@ els.activeCompany?.addEventListener("change", () => {
   const companyId = els.activeCompany.value || null;
   setActiveCompany(authState, companyId);
   renderAuthState();
+  loadProjectsForActiveCompany();
   setStatus(companyId ? "Active company updated." : "No active company selected.");
 });
 
+els.projectId?.addEventListener("change", () => {
+  const companyId = getActiveCompanyId(authState);
+  if (companyId && els.projectId.value) {
+    localStorage.setItem(activeProjectStorageKey(companyId), els.projectId.value);
+  }
+});
+
+els.btnReloadProjects?.addEventListener("click", async () => {
+  await loadProjectsForActiveCompany();
+  setStatus("Project list refreshed.");
+});
+
 els.btnSave?.addEventListener("click", async () => {
-  try { await saveDraft(); } catch (e) { setStatus(e.message, true); }
+  try { await saveDraft(); } catch (error) { setStatus(error.message, true); }
 });
 els.btnSubmit?.addEventListener("click", async () => {
-  try { await transition("submitted"); } catch (e) { setStatus(e.message, true); }
+  try { await transition("submitted"); } catch (error) { setStatus(error.message, true); }
 });
 els.btnApprove?.addEventListener("click", async () => {
-  try { await transition("approved"); } catch (e) { setStatus(e.message, true); }
+  try { await transition("approved"); } catch (error) { setStatus(error.message, true); }
 });
 els.btnReject?.addEventListener("click", async () => {
-  try { await transition("rejected"); } catch (e) { setStatus(e.message, true); }
+  try { await transition("rejected"); } catch (error) { setStatus(error.message, true); }
 });
 els.btnLoad?.addEventListener("click", async () => {
-  try { await loadReports(); setStatus("Loaded reports."); } catch (e) { setStatus(e.message, true); }
+  try { await loadReports(); setStatus("Loaded reports."); } catch (error) { setStatus(error.message, true); }
 });
 els.btnPreview?.addEventListener("click", () => {
   try {
     const html = renderReportHtml(buildPreviewInput());
     els.preview.innerHTML = html;
     setStatus("Preview rendered.");
-  } catch (e) {
-    setStatus(e.message, true);
+  } catch (error) {
+    setStatus(error.message, true);
   }
 });
 els.btnPrint?.addEventListener("click", () => {
@@ -427,15 +479,17 @@ els.btnPrint?.addEventListener("click", () => {
     const html = renderReportHtml(buildPreviewInput());
     openPrintWindow(html);
     setStatus("Print/PDF window opened.");
-  } catch (e) {
-    setStatus(e.message, true);
+  } catch (error) {
+    setStatus(error.message, true);
   }
 });
 els.btnUploadPhoto?.addEventListener("click", async () => {
-  try { await uploadPhoto(); } catch (e) { setStatus(e.message, true); }
+  try { await uploadPhoto(); } catch (error) { setStatus(error.message, true); }
 });
-els.btnSyncQueue?.addEventListener("click", async () => {
-  try { await syncQueuedActions(); setStatus("Queued sync completed."); } catch (e) { setStatus(e.message, true); }
+els.btnSyncQueue?.addEventListener("click", syncQueuedActionsSafe);
+
+window.addEventListener("online", () => {
+  syncQueuedActionsSafe();
 });
 
 refreshQueueSummary();

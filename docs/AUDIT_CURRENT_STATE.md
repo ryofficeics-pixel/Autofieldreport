@@ -29,6 +29,7 @@ Top-level artifacts now include:
 - Supabase foundation tables and helper functions exist in migrations.
 - Permission seed and RLS policy migration exists.
 - Report modules now use Supabase login/logout/session persistence and active-company context (manual token field removed).
+- Report pages fetch project options per active company from backend.
 - Queue action handling includes save, transition, and media upload replay paths.
 - Env preflight command runs and blocks missing required env values.
 - `npm.cmd install` completed without vulnerabilities reported.

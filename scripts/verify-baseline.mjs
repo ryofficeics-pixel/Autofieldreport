@@ -16,6 +16,7 @@ const requiredFiles = [
   "api/reports-save.js",
   "api/reports-transition.js",
   "api/reports-list.js",
+  "api/projects-list.js",
   "tools/auth-session.js",
   "tools/daily-report/index.html",
   "tools/weekly-report/index.html",

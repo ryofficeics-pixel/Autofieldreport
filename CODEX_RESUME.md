@@ -19,12 +19,13 @@ with partial progress in stages 03, 04, 05, 06, 07, 09, 10, and 11.
 - `scripts/bootstrap-first-admin.mjs` - idempotent first-admin bootstrap scaffold
 - `api/cloudinary-signature.js`, `api/media-register.js` - secure media API baseline
 - `api/public-config.js`, `api/auth-context.js` - frontend-safe config and authenticated company/role/permission context endpoint
-- `api/reports-save.js`, `api/reports-transition.js`, `api/reports-list.js` - report CRUD/status/list APIs
+- `api/reports-save.js`, `api/reports-transition.js`, `api/reports-list.js`, `api/projects-list.js` - report/project APIs
 - `ui/offline-queue.js` - IndexedDB queue baseline
 - `tools/daily-report`, `tools/weekly-report`, `tools/survey-report`, `tools/progress-report` - module UI baseline pages
 - `tools/report-export.js` - shared preview/print renderer used by all core report pages
 - `tools/media-upload.js` + report-form wiring - signed upload and media metadata registration flow
 - `tools/auth-session.js` + report-page auth UI wiring - Supabase login/logout/session persistence and active-company selector
+- report pages now load projects per active company and persist project selection per company
 - `supabase/tests/rls_smoke_test.sql`, `docs/RLS_TEST_RUNBOOK.md` - prepared DB policy smoke verification assets
 - `docs/module-contracts/*` - shared and per-module integration contracts
 - `docs/MEDIA_UPLOAD_API.md`, `docs/OFFLINE_QUEUE_STATUS.md` - implementation notes
@@ -50,7 +51,7 @@ with partial progress in stages 03, 04, 05, 06, 07, 09, 10, and 11.
 
 ## Next exact action
 
-Run live verification once env values are configured: apply/test RLS SQL, validate auth + company isolation + media upload + queue sync + export parity, then verify production deployment flow.
+Run live verification once env values are configured: apply/test RLS SQL, validate auth + company isolation + project selector + media upload + queued replay + export parity, then verify production deployment flow.
 
 ## Verification commands run
 

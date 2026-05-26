@@ -22,6 +22,8 @@
 - Secure photo upload path wired from report pages through signed upload and metadata registration APIs.
 - Offline queue supports `report.save`, `report.transition`, and `media.upload` actions with manual sync trigger.
 - Manual token input was replaced with Supabase login/logout + persisted session + active-company selector.
+- Project selector is loaded from backend per active company through `/api/projects-list`.
+- Online event now triggers queue replay attempt in addition to manual sync button.
 
 ## Remaining work
 

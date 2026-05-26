@@ -25,9 +25,9 @@ Branch: `production-saas-rebuild`
 | Auth | PARTIAL | `tools/auth-session.js`, `/api/public-config`, `/api/auth-context`, report pages auth UI | Real session flow implemented, live credential verification pending |
 | Company isolation | NOT VERIFIED | RLS SQL written in migrations | Not applied/tested against live DB |
 | RBAC/RLS | PARTIAL | `supabase/migrations/20260526162000_rls_and_permission_seed.sql` | Policy logic exists, runtime test pending |
-| Reports | PARTIAL | `api/reports-save.js`, `api/reports-transition.js`, `api/reports-list.js`, `tools/*` report pages | Daily/weekly/survey/progress baseline wired with session-based auth context |
+| Reports | PARTIAL | `api/reports-save.js`, `api/reports-transition.js`, `api/reports-list.js`, `api/projects-list.js`, `tools/*` report pages | Core modules use session-based auth + active-company + project selector |
 | Media upload | PARTIAL | `tools/report-form.js` + `tools/media-upload.js` calls secure media endpoints | Wired in core report pages, live token/env verification pending |
-| Offline sync | PARTIAL | `ui/offline-queue.js` + queue sync button in report pages | Queue handles `report.save`, `report.transition`, and `media.upload`; live failure-path validation pending |
+| Offline sync | PARTIAL | `ui/offline-queue.js` + queue sync button and `online` auto-sync trigger in report pages | Queue handles `report.save`, `report.transition`, and `media.upload`; live replay validation pending |
 | PDF/export | PARTIAL | `tools/report-export.js` shared preview/print renderer | Print/PDF baseline exists, strict parity validation pending |
 | Mobile UI | PARTIAL | `index.html`, `ui/styles.css` responsive layout | Real module forms not implemented |
 | Build/deploy | BLOCKED | `npm run check:env` failed | Required env vars not set |
