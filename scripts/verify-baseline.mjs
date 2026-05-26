@@ -40,4 +40,20 @@ if (failures.length) {
   process.exit(1);
 }
 
+const reportHtmlFiles = [
+  "tools/daily-report/index.html",
+  "tools/weekly-report/index.html",
+  "tools/survey-report/index.html",
+  "tools/progress-report/index.html"
+];
+
+for (const file of reportHtmlFiles) {
+  const fullPath = path.join(cwd, file);
+  const html = fs.readFileSync(fullPath, "utf8");
+  if (html.includes('id=\"accessToken\"')) {
+    console.error(`Baseline verification failed: ${file} still contains manual accessToken field.`);
+    process.exit(1);
+  }
+}
+
 console.log("Baseline verification passed.");
