@@ -23,6 +23,7 @@ with partial progress in stages 03, 04, 05, 06, 07, 10, and 11.
 - `tools/daily-report`, `tools/weekly-report`, `tools/survey-report`, `tools/progress-report` - module UI baseline pages
 - `tools/report-export.js` - shared preview/print renderer used by all core report pages
 - `tools/media-upload.js` + report-form wiring - signed upload and media metadata registration flow
+- `supabase/tests/rls_smoke_test.sql`, `docs/RLS_TEST_RUNBOOK.md` - prepared DB policy smoke verification assets
 - `docs/module-contracts/*` - shared and per-module integration contracts
 - `docs/MEDIA_UPLOAD_API.md`, `docs/OFFLINE_QUEUE_STATUS.md` - implementation notes
 - `ENV_SETUP.md`, `VERCEL_PRODUCTION_ENV_SETUP.md`, `DEPLOYMENT.md`, `.env.example` - env/deploy safety docs

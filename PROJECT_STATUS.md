@@ -41,5 +41,10 @@ Branch: `production-saas-rebuild`
 ## Current blockers
 
 1. Missing env values for Supabase/Cloudinary.
-2. No module-level integration with secure upload endpoints yet.
+2. Offline queue is not yet extended to media-upload and status-transition actions.
 3. Strict preview-vs-PDF parity is not yet validated with real report media sets.
+
+## Prepared but not executed
+
+- `supabase/tests/rls_smoke_test.sql`
+- `docs/RLS_TEST_RUNBOOK.md`
