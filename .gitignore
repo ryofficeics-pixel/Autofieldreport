@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.vercel/
+*.log
+logs/
+*.zip
+backup/
+backups/
+Auto Field Report backup before production SaaS rebuild May 2026/

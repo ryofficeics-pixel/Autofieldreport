@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auto Field Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./ui/styles.css" />
+</head>
+<body>
+  <div class="announcement-bar">
+    <span>Production SaaS baseline in progress.</span>
+    <a href="./prompt-pack/14_SINGLE_MASSIVE_AGENTIC_PROMPT.md">View plan</a>
+  </div>
+
+  <header class="site-header container">
+    <div class="brand">Auto Field Report</div>
+    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mainNav">Menu</button>
+    <nav id="mainNav" class="main-nav">
+      <a href="#modules">Modules</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#contracts">Contracts</a>
+      <a href="./PROJECT_STATUS.md">Status</a>
+    </nav>
+    <a class="btn btn-primary header-cta" href="./CODEX_RESUME.md">Continue Build</a>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <p class="mono-label">FIELD OPERATIONS SYSTEM</p>
+      <h1>Run reporting, evidence, sync, and approvals from one controlled workspace.</h1>
+      <p class="hero-copy">
+        Multi-company field reporting SaaS with secure media, offline queue, module contracts, and export trust.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#modules">Open modules</a>
+        <a class="btn btn-secondary" href="./fixed rule.md">Read fixed rules</a>
+      </div>
+      <div class="hero-media-grid">
+        <article class="agent-console-card">
+          <div class="chip-row">
+            <span class="chip chip-ok">Sync online</span>
+            <span class="chip">Company scoped</span>
+            <span class="chip">RLS enforced</span>
+          </div>
+          <h2>Agent Console</h2>
+          <ul>
+            <li>Daily and weekly reports routed by company and project.</li>
+            <li>Offline jobs tracked with pending, syncing, synced, failed, conflict states.</li>
+            <li>Media upload uses backend-mediated Cloudinary signatures.</li>
+          </ul>
+        </article>
+        <article class="hero-photo-card" aria-label="Product visual placeholder">
+          <div class="media-glow"></div>
+          <p>Design-driven operational UI baseline from DESIGN.md</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="trust-strip container">
+      <p>Built for trust-sensitive field operations teams.</p>
+      <div class="trust-grid">
+        <span>Multi-company</span>
+        <span>Audit ready</span>
+        <span>Offline tolerant</span>
+        <span>Secure media</span>
+      </div>
+    </section>
+
+    <section id="capabilities" class="capabilities container">
+      <h2>Core capabilities</h2>
+      <div class="capability-grid">
+        <article class="capability-card">
+          <h3>Company isolation</h3>
+          <p>All business records are scoped by company and protected by SQL policies.</p>
+        </article>
+        <article class="capability-card">
+          <h3>Permission model</h3>
+          <p>Role-capability checks control create, approve, export, and settings actions.</p>
+        </article>
+        <article class="capability-card">
+          <h3>Offline sync</h3>
+          <p>IndexedDB queue architecture supports reconnect retry and conflict visibility.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="dark-feature-band">
+      <div class="container">
+        <p class="mono-label">PRODUCT BAND</p>
+        <h2>Deep operational control without dashboard clutter.</h2>
+        <p>
+          The UI stays restrained and readable in the field: large tap targets, clear action hierarchy,
+          and explicit sync status on every report flow.
+        </p>
+      </div>
+    </section>
+
+    <section id="modules" class="modules container">
+      <h2>Module launcher</h2>
+      <div class="module-grid">
+        <article class="product-card"><h3>Daily Report</h3><a href="/tools/daily-report">Open route</a></article>
+        <article class="product-card"><h3>Weekly Report</h3><a href="/tools/weekly-report">Open route</a></article>
+        <article class="product-card"><h3>Survey Report</h3><a href="/tools/survey-report">Open route</a></article>
+        <article class="product-card"><h3>Progress Report</h3><a href="/tools/progress-report">Open route</a></article>
+        <article class="product-card"><h3>Absensi Karyawan</h3><a href="/tools/absensi-karyawan">Open route</a></article>
+        <article class="product-card"><h3>Absensi Admin</h3><a href="/tools/absensi-admin">Open route</a></article>
+        <article class="product-card"><h3>Module Generator</h3><a href="/tools/module-generator">Open route</a></article>
+        <article class="product-card"><h3>ROI Simulator</h3><a href="/tools/roi-simulator">Open route</a></article>
+        <article class="product-card"><h3>Estimator</h3><a href="/tools/estimator">Open route</a></article>
+      </div>
+    </section>
+
+    <section id="contracts" class="contracts container">
+      <h2>Integration contracts</h2>
+      <p>Authoritative module contract docs are maintained under <code>docs/module-contracts/</code>.</p>
+      <a class="btn btn-secondary" href="./docs/module-contracts/SHARED_CONTRACT.md">Open shared contract</a>
+    </section>
+
+    <section class="queue-panel container">
+      <h2>Offline queue status</h2>
+      <p>IndexedDB queue visibility baseline for reconnect-sync validation.</p>
+      <div class="queue-actions">
+        <button type="button" id="btnAddDemo" class="btn btn-primary">Add demo pending</button>
+        <button type="button" id="btnSyncDemo" class="btn btn-secondary">Run demo sync</button>
+      </div>
+      <div id="queueSummary" class="queue-summary" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-kicker">AI moves fast. Field evidence must stay correct.</p>
+      <h2>Auto Field Report</h2>
+      <p>Canonical rules: <a href="./fixed rule.md">fixed rule.md</a></p>
+    </div>
+  </footer>
+
+  <script type="module" src="./ui/app.js"></script>
+</body>
+</html>

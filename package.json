@@ -1,0 +1,13 @@
+{
+  "name": "auto-field-report",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "check:env": "node scripts/check-env.mjs",
+    "bootstrap:first-admin": "node scripts/bootstrap-first-admin.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.57.4"
+  }
+}
