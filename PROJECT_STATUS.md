@@ -26,8 +26,8 @@ Branch: `production-saas-rebuild`
 | Company isolation | NOT VERIFIED | RLS SQL written in migrations | Not applied/tested against live DB |
 | RBAC/RLS | PARTIAL | `supabase/migrations/20260526162000_rls_and_permission_seed.sql` | Policy logic exists, runtime test pending |
 | Reports | PARTIAL | `api/reports-save.js`, `api/reports-transition.js`, `api/reports-list.js`, `tools/*` report pages | Daily/weekly/survey/progress baseline wired; auth token entry and full QA pending |
-| Media upload | PARTIAL | `api/cloudinary-signature.js`, `api/media-register.js`, `docs/MEDIA_UPLOAD_API.md` | Endpoints added, not integrated with real module forms |
-| Offline sync | PARTIAL | `ui/offline-queue.js`, queue panel in `index.html` | IndexedDB queue baseline exists, module/API wiring pending |
+| Media upload | PARTIAL | `tools/report-form.js` + `tools/media-upload.js` calls secure media endpoints | Wired in core report pages, live token/env verification pending |
+| Offline sync | PARTIAL | `ui/offline-queue.js` + queue sync button in report pages | Report save can queue on API failure; conflict/media queue flows still pending |
 | PDF/export | PARTIAL | `tools/report-export.js` shared preview/print renderer | Print/PDF baseline exists, strict parity validation pending |
 | Mobile UI | PARTIAL | `index.html`, `ui/styles.css` responsive layout | Real module forms not implemented |
 | Build/deploy | BLOCKED | `npm run check:env` failed | Required env vars not set |

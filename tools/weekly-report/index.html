@@ -57,6 +57,16 @@
         <label for="payload">Payload JSON (use photos: [{"url":"...","caption":"..."}] for export preview)</label>
         <textarea id="payload">{"summary":"", "notes":"", "photos":[]}</textarea>
       </div>
+      <div class="row">
+        <div>
+          <label for="photoFile">Photo file (secure upload)</label>
+          <input id="photoFile" type="file" accept="image/*" />
+        </div>
+        <div>
+          <label for="photoCaption">Photo caption</label>
+          <input id="photoCaption" type="text" placeholder="Optional caption" />
+        </div>
+      </div>
       <div>
         <label for="rejectionReason">Rejection Reason (only for reject)</label>
         <input id="rejectionReason" type="text" placeholder="Required when rejecting" />
@@ -66,11 +76,14 @@
         <button id="btnSubmit" class="btn-secondary" type="button">Submit</button>
         <button id="btnApprove" class="btn-secondary" type="button">Approve</button>
         <button id="btnReject" class="btn-secondary" type="button">Reject</button>
+        <button id="btnUploadPhoto" class="btn-secondary" type="button">Upload Photo</button>
         <button id="btnLoad" class="btn-secondary" type="button">Load Recent</button>
         <button id="btnPreview" class="btn-secondary" type="button">Render Preview</button>
         <button id="btnPrint" class="btn-secondary" type="button">Print/PDF</button>
+        <button id="btnSyncQueue" class="btn-secondary" type="button">Sync Queue</button>
       </div>
       <div id="status" class="status">Ready.</div>
+      <div id="queueSummary" class="status">queue total=0 pending=0 syncing=0 synced=0 failed=0</div>
     </section>
 
     <section class="container card">
