@@ -27,6 +27,7 @@ with partial progress in stages 03, 04, 05, 06, 07, 09, 10, and 11.
 - `tools/auth-session.js` + report-page auth UI wiring - Supabase login/logout/session persistence and active-company selector
 - report pages now load projects per active company and persist project selection per company
 - `supabase/tests/rls_smoke_test.sql`, `docs/RLS_TEST_RUNBOOK.md` - prepared DB policy smoke verification assets
+- `.github/workflows/ci.yml` - repository CI for baseline/auth-flow regression checks
 - `docs/module-contracts/*` - shared and per-module integration contracts
 - `docs/MEDIA_UPLOAD_API.md`, `docs/OFFLINE_QUEUE_STATUS.md` - implementation notes
 - `ENV_SETUP.md`, `VERCEL_PRODUCTION_ENV_SETUP.md`, `DEPLOYMENT.md`, `.env.example` - env/deploy safety docs

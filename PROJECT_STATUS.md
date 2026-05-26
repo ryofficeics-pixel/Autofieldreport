@@ -51,3 +51,7 @@ Branch: `production-saas-rebuild`
 
 - `supabase/tests/rls_smoke_test.sql`
 - `docs/RLS_TEST_RUNBOOK.md`
+
+## CI baseline
+
+- `.github/workflows/ci.yml` runs `verify:auth-flow` and `verify:baseline` on `main` and `production-saas-rebuild`.
