@@ -22,12 +22,12 @@ Branch: `production-saas-rebuild`
 
 | Area | Status | Evidence | Notes |
 |---|---|---|---|
-| Auth | NOT VERIFIED | No runtime auth UI/API tested | Only bootstrap script scaffold exists |
+| Auth | PARTIAL | `tools/auth-session.js`, `/api/public-config`, `/api/auth-context`, report pages auth UI | Real session flow implemented, live credential verification pending |
 | Company isolation | NOT VERIFIED | RLS SQL written in migrations | Not applied/tested against live DB |
 | RBAC/RLS | PARTIAL | `supabase/migrations/20260526162000_rls_and_permission_seed.sql` | Policy logic exists, runtime test pending |
-| Reports | PARTIAL | `api/reports-save.js`, `api/reports-transition.js`, `api/reports-list.js`, `tools/*` report pages | Daily/weekly/survey/progress baseline wired; auth token entry and full QA pending |
+| Reports | PARTIAL | `api/reports-save.js`, `api/reports-transition.js`, `api/reports-list.js`, `tools/*` report pages | Daily/weekly/survey/progress baseline wired with session-based auth context |
 | Media upload | PARTIAL | `tools/report-form.js` + `tools/media-upload.js` calls secure media endpoints | Wired in core report pages, live token/env verification pending |
-| Offline sync | PARTIAL | `ui/offline-queue.js` + queue sync button in report pages | Report save can queue on API failure; conflict/media queue flows still pending |
+| Offline sync | PARTIAL | `ui/offline-queue.js` + queue sync button in report pages | Queue handles `report.save`, `report.transition`, and `media.upload`; live failure-path validation pending |
 | PDF/export | PARTIAL | `tools/report-export.js` shared preview/print renderer | Print/PDF baseline exists, strict parity validation pending |
 | Mobile UI | PARTIAL | `index.html`, `ui/styles.css` responsive layout | Real module forms not implemented |
 | Build/deploy | BLOCKED | `npm run check:env` failed | Required env vars not set |
@@ -41,8 +41,9 @@ Branch: `production-saas-rebuild`
 ## Current blockers
 
 1. Missing env values for Supabase/Cloudinary.
-2. Offline queue is not yet extended to media-upload and status-transition actions.
+2. Supabase migrations/RLS are not yet verified against a live Supabase project.
 3. Strict preview-vs-PDF parity is not yet validated with real report media sets.
+4. Production deploy is not verified.
 
 ## Prepared but not executed
 

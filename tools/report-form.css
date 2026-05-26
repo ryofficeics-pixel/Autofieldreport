@@ -43,6 +43,14 @@ body {
   margin-bottom: 16px;
 }
 
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.2px;
+}
+
 .row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -79,6 +87,11 @@ button {
   border-radius: 32px;
   padding: 12px 22px;
   cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .btn-primary {

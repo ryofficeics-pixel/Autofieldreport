@@ -20,10 +20,11 @@
 - Audit log write attempted for create/update/transition.
 - Shared preview and print/PDF renderer used by all core report pages.
 - Secure photo upload path wired from report pages through signed upload and metadata registration APIs.
-- Offline queue fallback for report save is wired with manual sync action.
+- Offline queue supports `report.save`, `report.transition`, and `media.upload` actions with manual sync trigger.
+- Manual token input was replaced with Supabase login/logout + persisted session + active-company selector.
 
 ## Remaining work
 
 1. Validate strict preview-vs-PDF parity with real multi-photo datasets.
-2. Extend offline queue to media operations and status-transition operations.
-3. Replace manual token input with real authenticated app session flow.
+2. Validate queued media upload replay with real online/offline transitions.
+3. Integrate richer project/company pickers from live DB for field usability.

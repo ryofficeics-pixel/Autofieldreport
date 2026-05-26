@@ -19,24 +19,46 @@
   <main id="app" data-report-type="daily" data-report-title="Daily Report">
     <section class="hero container">
       <h1 id="pageTitle">Daily Report</h1>
-      <p>Backend-persistent report form baseline with company scope and RBAC enforcement.</p>
+      <p>Production flow: Supabase login, active company context, secure media, offline queue, and company-scoped report APIs.</p>
     </section>
 
     <section class="container card">
+      <h2>Session and company context</h2>
       <div class="row">
         <div>
-          <label for="accessToken">Access Token (Supabase JWT)</label>
-          <input id="accessToken" type="password" placeholder="Paste bearer token" />
+          <label for="authEmail">Email</label>
+          <input id="authEmail" type="email" placeholder="user@company.com" />
         </div>
         <div>
-          <label for="reportId">Report ID (for update/transition)</label>
-          <input id="reportId" type="text" placeholder="Auto-filled after save" />
+          <label for="authPassword">Password</label>
+          <input id="authPassword" type="password" placeholder="Password" />
         </div>
+      </div>
+      <div class="actions">
+        <button id="btnLogin" class="btn-primary" type="button">Login</button>
+        <button id="btnLogout" class="btn-secondary" type="button">Logout</button>
       </div>
       <div class="row">
         <div>
-          <label for="companyId">Company ID</label>
-          <input id="companyId" type="text" placeholder="UUID" />
+          <label for="activeCompany">Active Company</label>
+          <select id="activeCompany"><option value="">Loading...</option></select>
+        </div>
+        <div>
+          <label for="companyId">Active Company ID</label>
+          <input id="companyId" type="text" readonly placeholder="Auto-set from active company" />
+        </div>
+      </div>
+      <div id="authInfo" class="status">Not logged in.</div>
+      <div id="companyInfo" class="status">Company: -</div>
+      <div id="permissionInfo" class="status">Permissions: -</div>
+    </section>
+
+    <section class="container card">
+      <h2>Report workflow</h2>
+      <div class="row">
+        <div>
+          <label for="reportId">Report ID (for update/transition)</label>
+          <input id="reportId" type="text" placeholder="Auto-filled after save" />
         </div>
         <div>
           <label for="projectId">Project ID</label>
@@ -54,7 +76,7 @@
         </div>
       </div>
       <div>
-        <label for="payload">Payload JSON (use photos: [{"url":"...","caption":"..."}] for export preview)</label>
+        <label for="payload">Payload JSON (use photos: [{\"url\":\"...\",\"caption\":\"...\"}] for export preview)</label>
         <textarea id="payload">{"summary":"", "notes":"", "photos":[]}</textarea>
       </div>
       <div class="row">
@@ -83,7 +105,7 @@
         <button id="btnSyncQueue" class="btn-secondary" type="button">Sync Queue</button>
       </div>
       <div id="status" class="status">Ready.</div>
-      <div id="queueSummary" class="status">queue total=0 pending=0 syncing=0 synced=0 failed=0</div>
+      <div id="queueSummary" class="status">queue total=0 pending=0 syncing=0 synced=0 failed=0 conflict=0</div>
     </section>
 
     <section class="container card">

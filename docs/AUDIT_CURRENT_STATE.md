@@ -28,6 +28,8 @@ Top-level artifacts now include:
 - Design token implementation exists from `docs/DESIGN_SOURCE.md`.
 - Supabase foundation tables and helper functions exist in migrations.
 - Permission seed and RLS policy migration exists.
+- Report modules now use Supabase login/logout/session persistence and active-company context (manual token field removed).
+- Queue action handling includes save, transition, and media upload replay paths.
 - Env preflight command runs and blocks missing required env values.
 - `npm.cmd install` completed without vulnerabilities reported.
 
@@ -45,8 +47,8 @@ Top-level artifacts now include:
 ## Security and data gaps
 
 1. SQL migration set is not applied/verified against a real Supabase project yet.
-2. Cloudinary/media endpoints exist but are not fully wired from report forms.
-3. IndexedDB queue exists but is not connected to real report/media API actions.
+2. Live RLS behavior is not yet validated with real users/companies on Supabase.
+3. Queue/media flows are wired, but online/offline replay behavior has not been validated end-to-end with live services.
 4. Report export/PDF parity implementation still missing.
 
 ## Deployment gaps
