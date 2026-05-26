@@ -59,4 +59,5 @@ Run live verification once env values are configured: apply/test RLS SQL, valida
 npm.cmd install
 npm.cmd run verify:baseline
 npm.cmd run check:env
+npm.cmd run verify:rls-smoke
 ```

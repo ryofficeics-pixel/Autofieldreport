@@ -37,11 +37,12 @@ Branch: `production-saas-rebuild`
 - `npm.cmd install` -> success, 0 vulnerabilities
 - `npm.cmd run verify:baseline` -> passed
 - `npm.cmd run check:env` -> failed due missing required public/server env
+- `npm.cmd run verify:rls-smoke` -> blocked (`SUPABASE_DB_URL` missing)
 
 ## Current blockers
 
 1. Missing env values for Supabase/Cloudinary.
-2. Supabase migrations/RLS are not yet verified against a live Supabase project.
+2. `SUPABASE_DB_URL` is missing, so live RLS smoke test cannot run.
 3. Strict preview-vs-PDF parity is not yet validated with real report media sets.
 4. Production deploy is not verified.
 

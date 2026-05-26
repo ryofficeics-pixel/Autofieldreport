@@ -15,6 +15,12 @@ Quick smoke verification for migration and policy baseline before deeper scenari
 psql "$SUPABASE_DB_URL" -f supabase/tests/rls_smoke_test.sql
 ```
 
+or via project script:
+
+```bash
+npm.cmd run verify:rls-smoke
+```
+
 ## Expected
 
 1. Core helper functions are listed.
