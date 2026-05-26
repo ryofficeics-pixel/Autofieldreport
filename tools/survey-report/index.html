@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Survey Report - Auto Field Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../report-form.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="container">
+      <a href="/">Back to launcher</a>
+    </div>
+  </header>
+
+  <main id="app" data-report-type="survey" data-report-title="Survey Report">
+    <section class="hero container">
+      <h1 id="pageTitle">Survey Report</h1>
+      <p>Backend-persistent report form baseline with company scope and RBAC enforcement.</p>
+    </section>
+
+    <section class="container card">
+      <div class="row">
+        <div>
+          <label for="accessToken">Access Token (Supabase JWT)</label>
+          <input id="accessToken" type="password" placeholder="Paste bearer token" />
+        </div>
+        <div>
+          <label for="reportId">Report ID (for update/transition)</label>
+          <input id="reportId" type="text" placeholder="Auto-filled after save" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="companyId">Company ID</label>
+          <input id="companyId" type="text" placeholder="UUID" />
+        </div>
+        <div>
+          <label for="projectId">Project ID</label>
+          <input id="projectId" type="text" placeholder="UUID" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="locationId">Location ID (optional)</label>
+          <input id="locationId" type="text" placeholder="UUID" />
+        </div>
+        <div>
+          <label for="reportDate">Report Date</label>
+          <input id="reportDate" type="date" />
+        </div>
+      </div>
+      <div>
+        <label for="payload">Payload JSON</label>
+        <textarea id="payload">{"summary":"", "notes":""}</textarea>
+      </div>
+      <div>
+        <label for="rejectionReason">Rejection Reason (only for reject)</label>
+        <input id="rejectionReason" type="text" placeholder="Required when rejecting" />
+      </div>
+      <div class="actions">
+        <button id="btnSave" class="btn-primary" type="button">Save Draft</button>
+        <button id="btnSubmit" class="btn-secondary" type="button">Submit</button>
+        <button id="btnApprove" class="btn-secondary" type="button">Approve</button>
+        <button id="btnReject" class="btn-secondary" type="button">Reject</button>
+        <button id="btnLoad" class="btn-secondary" type="button">Load Recent</button>
+      </div>
+      <div id="status" class="status">Ready.</div>
+    </section>
+
+    <section class="container card">
+      <h2>Recent records</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Date</th><th>Status</th><th>Updated</th>
+          </tr>
+        </thead>
+        <tbody id="listBody"><tr><td colspan="4">Load reports to view rows.</td></tr></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script type="module" src="../report-form.js"></script>
+</body>
+</html>

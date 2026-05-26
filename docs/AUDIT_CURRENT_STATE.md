@@ -33,21 +33,21 @@ Top-level artifacts now include:
 
 ## Current module status
 
-- Daily Report: `NOT IMPLEMENTED` (launcher route contract only)
-- Weekly Report: `NOT IMPLEMENTED` (launcher route contract only)
-- Survey Report: `NOT IMPLEMENTED` (launcher route contract only)
-- Progress Report: `NOT IMPLEMENTED` (launcher route contract only)
-- Absensi Admin/Karyawan: `NOT IMPLEMENTED` (launcher route contract only)
-- ROI Simulator: `NOT IMPLEMENTED` (launcher route contract only)
-- Estimator/RAB tools: `NOT IMPLEMENTED` (launcher route contract only)
-- Module Generator: `NOT IMPLEMENTED` (launcher route contract only)
+- Daily Report: `PARTIAL` (`/tools/daily-report` + report APIs)
+- Weekly Report: `PARTIAL` (`/tools/weekly-report` + report APIs)
+- Survey Report: `PARTIAL` (`/tools/survey-report` + report APIs)
+- Progress Report: `PARTIAL` (`/tools/progress-report` + report APIs)
+- Absensi Admin/Karyawan: `NOT IMPLEMENTED` (contract only)
+- ROI Simulator: `NOT IMPLEMENTED` (contract only)
+- Estimator/RAB tools: `NOT IMPLEMENTED` (contract only)
+- Module Generator: `NOT IMPLEMENTED` (contract only)
 
 ## Security and data gaps
 
 1. SQL migration set is not applied/verified against a real Supabase project yet.
-2. No API handlers for Cloudinary signed upload flow yet.
-3. No implemented IndexedDB sync engine code yet.
-4. No runtime report module CRUD or export implementation yet.
+2. Cloudinary/media endpoints exist but are not fully wired from report forms.
+3. IndexedDB queue exists but is not connected to real report/media API actions.
+4. Report export/PDF parity implementation still missing.
 
 ## Deployment gaps
 

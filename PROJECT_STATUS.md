@@ -11,7 +11,7 @@ Branch: `production-saas-rebuild`
 - Stage 4 Auth/RBAC bootstrap scaffolding: `PARTIAL`
 - Stage 5 Secure media upload: `PARTIAL`
 - Stage 6 Offline queue/sync: `PARTIAL`
-- Stage 7 Report modules: `NOT VERIFIED`
+- Stage 7 Report modules: `PARTIAL`
 - Stage 8 Module contracts: `DONE`
 - Stage 9 PDF parity: `NOT VERIFIED`
 - Stage 10 Mobile/performance: `PARTIAL` (UI shell responsiveness only)
@@ -25,7 +25,7 @@ Branch: `production-saas-rebuild`
 | Auth | NOT VERIFIED | No runtime auth UI/API tested | Only bootstrap script scaffold exists |
 | Company isolation | NOT VERIFIED | RLS SQL written in migrations | Not applied/tested against live DB |
 | RBAC/RLS | PARTIAL | `supabase/migrations/20260526162000_rls_and_permission_seed.sql` | Policy logic exists, runtime test pending |
-| Reports | NOT VERIFIED | Launcher cards/routes only | CRUD implementation not added |
+| Reports | PARTIAL | `api/reports-save.js`, `api/reports-transition.js`, `api/reports-list.js`, `tools/*` report pages | Daily/weekly/survey/progress baseline wired; auth token entry and full QA pending |
 | Media upload | PARTIAL | `api/cloudinary-signature.js`, `api/media-register.js`, `docs/MEDIA_UPLOAD_API.md` | Endpoints added, not integrated with real module forms |
 | Offline sync | PARTIAL | `ui/offline-queue.js`, queue panel in `index.html` | IndexedDB queue baseline exists, module/API wiring pending |
 | PDF/export | NOT VERIFIED | No export runtime code yet | Requires shared preview/export renderer |
@@ -41,4 +41,4 @@ Branch: `production-saas-rebuild`
 
 1. Missing env values for Supabase/Cloudinary.
 2. No module-level integration with secure upload endpoints yet.
-3. No runtime report CRUD/export implementation yet.
+3. PDF export parity still not implemented.

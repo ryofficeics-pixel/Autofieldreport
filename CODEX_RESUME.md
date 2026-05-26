@@ -7,7 +7,7 @@ Current branch: `production-saas-rebuild`
 ## Last completed stage
 
 `08_EXTERNAL_MODULE_CONTRACTS` (contract docs created)  
-with partial progress in stages 03, 04, 05, 06, 10, and 11.
+with partial progress in stages 03, 04, 05, 06, 07, 10, and 11.
 
 ## What changed
 
@@ -18,7 +18,9 @@ with partial progress in stages 03, 04, 05, 06, 10, and 11.
 - `scripts/check-env.mjs` - deployment env preflight
 - `scripts/bootstrap-first-admin.mjs` - idempotent first-admin bootstrap scaffold
 - `api/cloudinary-signature.js`, `api/media-register.js` - secure media API baseline
+- `api/reports-save.js`, `api/reports-transition.js`, `api/reports-list.js` - report CRUD/status/list APIs
 - `ui/offline-queue.js` - IndexedDB queue baseline
+- `tools/daily-report`, `tools/weekly-report`, `tools/survey-report`, `tools/progress-report` - module UI baseline pages
 - `docs/module-contracts/*` - shared and per-module integration contracts
 - `docs/MEDIA_UPLOAD_API.md`, `docs/OFFLINE_QUEUE_STATUS.md` - implementation notes
 - `ENV_SETUP.md`, `VERCEL_PRODUCTION_ENV_SETUP.md`, `DEPLOYMENT.md`, `.env.example` - env/deploy safety docs
@@ -28,7 +30,7 @@ with partial progress in stages 03, 04, 05, 06, 10, and 11.
 1. No live Supabase project values configured in environment yet.
 2. Secure upload APIs are implemented but not yet wired from report modules.
 3. Offline queue exists but is not yet connected to real report/media API operations.
-4. Report module CRUD and export runtime not implemented.
+4. Report export/PDF parity runtime not implemented.
 
 ## Required env vars
 
@@ -43,7 +45,7 @@ with partial progress in stages 03, 04, 05, 06, 10, and 11.
 
 ## Next exact action
 
-Implement Stage 7 real report module CRUD (daily/weekly/survey/progress) and wire upload + offline queue to those flows.
+Implement Stage 9 shared preview/PDF export path, then connect report pages to secure media upload and offline sync queue.
 
 ## Verification commands run
 

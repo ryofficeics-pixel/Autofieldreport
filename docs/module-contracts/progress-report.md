@@ -1,7 +1,7 @@
 # Progress Report Contract
 
 - route/path: $(System.Collections.Hashtable.Route)
-- module owner/status: product-team / planned-integration
+- module owner/status: product-team / baseline-integrated
 - auth/session handoff method: shared session from host app
 - active company requirement: required
 - project requirement: required where workflow is project-bound
@@ -12,4 +12,4 @@
 - export/PDF protocol: export allowed only after source record exists and permission check passes
 - error response shape: { code, message, details? }
 - audit log actions: create, update, delete, approve/reject, export, upload
-- production readiness status: NOT VERIFIED
+- production readiness status: PARTIAL
