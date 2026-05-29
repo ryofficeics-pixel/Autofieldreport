@@ -12,6 +12,15 @@ function requiredString(value) {
   return typeof value === "string" && value.trim().length > 0;
 }
 
+function isHttpsUrl(value) {
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return methodNotAllowed(res, ["POST"]);
 
@@ -44,6 +53,7 @@ export default async function handler(req, res) {
     if (!requiredString(module)) return badRequest(res, "module is required");
     if (!requiredString(cloudinaryPublicId)) return badRequest(res, "cloudinaryPublicId is required");
     if (!requiredString(secureUrl)) return badRequest(res, "secureUrl is required");
+    if (!isHttpsUrl(secureUrl)) return badRequest(res, "secureUrl must be a valid https URL");
 
     const hasMediaUpload = await checkPermission(authClient, companyId, "media.upload");
     if (!hasMediaUpload) return forbidden(res, "User lacks media.upload permission");

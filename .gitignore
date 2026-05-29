@@ -2,10 +2,18 @@
 .env.*
 !.env.example
 node_modules/
+.next/
+dist/
+build/
 .vercel/
+.DS_Store
+Thumbs.db
 *.log
 logs/
 *.zip
+*.rar
+*.7z
 backup/
 backups/
 Auto Field Report backup before production SaaS rebuild May 2026/
+supabase/.temp/

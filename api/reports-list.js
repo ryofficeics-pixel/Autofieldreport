@@ -1,6 +1,6 @@
 import { createSupabaseClients } from "./_lib/supabase.js";
-import { badRequest, methodNotAllowed, serverError, unauthorized, json } from "./_lib/http.js";
-import { getBearerToken, getAuthenticatedUser } from "./_lib/authz.js";
+import { badRequest, forbidden, methodNotAllowed, serverError, unauthorized, json } from "./_lib/http.js";
+import { getBearerToken, getAuthenticatedUser, checkPermission } from "./_lib/authz.js";
 
 export default async function handler(req, res) {
   if (req.method !== "GET") return methodNotAllowed(res, ["GET"]);
@@ -17,6 +17,9 @@ export default async function handler(req, res) {
     const reportType = req.query.reportType || null;
     const projectId = req.query.projectId || null;
     if (!companyId) return badRequest(res, "companyId query is required");
+
+    const canRead = await checkPermission(authClient, companyId, "report.read");
+    if (!canRead) return forbidden(res, "User lacks report.read permission");
 
     let query = authClient
       .from("reports")
