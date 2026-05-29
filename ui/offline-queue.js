@@ -1,6 +1,7 @@
 const DB_NAME = "auto-field-report-offline";
 const DB_VERSION = 1;
 const STORE = "sync_jobs";
+let syncLoopRunning = false;
 
 function openDb() {
   return new Promise((resolve, reject) => {
@@ -35,6 +36,12 @@ function nowIso() {
 
 function id() {
   return crypto.randomUUID();
+}
+
+function toErrorMessage(error) {
+  if (!error) return "sync_failed";
+  if (typeof error.message === "string" && error.message.trim()) return error.message;
+  return String(error);
 }
 
 export async function queueAction(input) {
@@ -86,23 +93,32 @@ export async function getQueueSummary() {
 }
 
 export async function syncPending(syncHandler) {
+  if (syncLoopRunning) {
+    throw new Error("Queue sync is already running");
+  }
+  syncLoopRunning = true;
+
   const items = await listActions();
   const pending = items.filter((item) => item.status === "pending" || item.status === "failed");
 
-  for (const item of pending) {
-    item.status = "syncing";
-    await updateAction(item);
-    try {
-      const result = await syncHandler(item);
-      item.status = "synced";
-      item.synced_at = nowIso();
-      item.last_error = null;
-      item.synced_response = result || null;
-    } catch (error) {
-      item.status = "failed";
-      item.tries += 1;
-      item.last_error = error.message || "sync_failed";
+  try {
+    for (const item of pending) {
+      item.status = "syncing";
+      await updateAction(item);
+      try {
+        const result = await syncHandler(item);
+        item.status = "synced";
+        item.synced_at = nowIso();
+        item.last_error = null;
+        item.synced_response = result || null;
+      } catch (error) {
+        item.status = "failed";
+        item.tries += 1;
+        item.last_error = toErrorMessage(error);
+      }
+      await updateAction(item);
     }
-    await updateAction(item);
+  } finally {
+    syncLoopRunning = false;
   }
 }

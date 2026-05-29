@@ -16,6 +16,10 @@ function validModuleName(value) {
   return typeof value === "string" && /^[a-z0-9-_/]+$/i.test(value);
 }
 
+function isUuid(value) {
+  return typeof value === "string" && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
+
 export default async function handler(req, res) {
   if (req.method !== "POST") return methodNotAllowed(res, ["POST"]);
 
@@ -38,6 +42,9 @@ export default async function handler(req, res) {
     } = body;
 
     if (!companyId) return badRequest(res, "companyId is required");
+    if (!isUuid(companyId)) return badRequest(res, "companyId must be a valid UUID");
+    if (projectId && !isUuid(projectId)) return badRequest(res, "projectId must be a valid UUID when provided");
+    if (recordId && !isUuid(recordId)) return badRequest(res, "recordId must be a valid UUID when provided");
     if (!validModuleName(module)) return badRequest(res, "module is required and must be slug-safe");
     if (!fileType || !String(fileType).startsWith(MIME_PREFIX)) {
       return badRequest(res, "Only image uploads are allowed");

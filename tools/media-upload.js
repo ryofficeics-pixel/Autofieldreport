@@ -1,4 +1,5 @@
 async function jsonRequest(path, token, body) {
+  if (!token) throw new Error("Missing session token");
   const res = await fetch(path, {
     method: "POST",
     headers: {
@@ -7,7 +8,7 @@ async function jsonRequest(path, token, body) {
     },
     body: JSON.stringify(body)
   });
-  const data = await res.json();
+  const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(`${data.code || "error"}: ${data.message || "request failed"}`);
   return data;
 }
@@ -45,6 +46,9 @@ export async function uploadReportPhoto({
   const cloudData = await cloudRes.json();
   if (!cloudRes.ok) {
     throw new Error(cloudData.error?.message || "Cloudinary upload failed");
+  }
+  if (!cloudData.public_id || !cloudData.secure_url) {
+    throw new Error("Cloudinary response missing required media identifiers");
   }
 
   const mediaRes = await jsonRequest("/api/media-register", token, {

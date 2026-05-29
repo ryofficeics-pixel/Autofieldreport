@@ -7,14 +7,16 @@ Production deploy is blocked unless required env variables are present and env p
 ## Steps
 
 1. Install dependencies:
-   - `npm install`
+   - `npm.cmd install`
 2. Validate env:
-   - `npm run check:env`
-3. Apply Supabase migrations from `supabase/migrations`.
-4. Bootstrap first admin if needed:
-   - `npm run bootstrap:first-admin`
-5. Deploy to Vercel production environment.
-6. Verify:
+   - `npm.cmd run check:env`
+3. Run RLS smoke readiness check (staging/test DB):
+   - `npm.cmd run verify:rls-smoke`
+4. Apply Supabase migrations from `supabase/migrations`.
+5. Bootstrap first admin if needed:
+   - `npm.cmd run bootstrap:first-admin`
+6. Deploy to Vercel production environment.
+7. Verify:
    - auth works
    - company isolation works
    - report save works
@@ -23,5 +25,5 @@ Production deploy is blocked unless required env variables are present and env p
 
 ## Current limitation
 
-This repository currently contains foundational docs, SQL migrations, and UI shell.
-Module runtime implementation and API handlers are still incomplete and require follow-up stages.
+Live deployment verification remains blocked until required env values are configured.
+Do not mark production as ready unless `check:env` and `verify:rls-smoke` pass with real environment values.

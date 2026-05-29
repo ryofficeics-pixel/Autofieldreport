@@ -56,4 +56,18 @@ for (const file of reportHtmlFiles) {
   }
 }
 
+const shellHtmlPath = path.join(cwd, "index.html");
+const shellHtml = fs.readFileSync(shellHtmlPath, "utf8");
+if (!shellHtml.includes('id="queueDemoControls"') || !shellHtml.includes('id="queueDemoControls" data-demo-controls="true" hidden')) {
+  console.error("Baseline verification failed: index.html demo controls are not safely hidden by default.");
+  process.exit(1);
+}
+
+const shellAppPath = path.join(cwd, "ui", "app.js");
+const shellApp = fs.readFileSync(shellAppPath, "utf8");
+if (!shellApp.includes('params.get("demo") === "1"') || !shellApp.includes("environment !== \"production\"")) {
+  console.error("Baseline verification failed: ui/app.js is missing explicit demo-control gating.");
+  process.exit(1);
+}
+
 console.log("Baseline verification passed.");

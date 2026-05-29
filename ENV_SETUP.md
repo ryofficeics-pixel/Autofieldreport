@@ -19,19 +19,23 @@ Copy `.env.example` to `.env` and fill values.
 - `CLOUDINARY_API_KEY`
 - `CLOUDINARY_API_SECRET`
 
-## 4. Optional bootstrap variables
+## 4. Required DB smoke variable
+
+- `SUPABASE_DB_URL` (required for `npm.cmd run verify:rls-smoke`)
+
+## 5. Optional bootstrap variables
 
 - `FIRST_ADMIN_EMAIL`
 - `FIRST_ADMIN_PASSWORD`
 - `FIRST_COMPANY_NAME`
 - `FIRST_COMPANY_SLUG`
 
-## 5. Validate env
+## 6. Validate env
 
 Run:
 
 ```bash
-npm run check:env
+npm.cmd run check:env
 ```
 
 If this fails, do not run production build/deploy.

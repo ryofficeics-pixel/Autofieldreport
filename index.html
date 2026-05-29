@@ -122,10 +122,11 @@
     <section class="queue-panel container">
       <h2>Offline queue status</h2>
       <p>IndexedDB queue visibility baseline for reconnect-sync validation.</p>
-      <div class="queue-actions">
+      <div class="queue-actions" id="queueDemoControls" data-demo-controls="true" hidden aria-hidden="true">
         <button type="button" id="btnAddDemo" class="btn btn-primary">Add demo pending</button>
         <button type="button" id="btnSyncDemo" class="btn btn-secondary">Run demo sync</button>
       </div>
+      <p id="queueDemoNotice" class="mono-label" hidden aria-hidden="true">Demo queue controls enabled (non-production only).</p>
       <div id="queueSummary" class="queue-summary" aria-live="polite"></div>
     </section>
   </main>

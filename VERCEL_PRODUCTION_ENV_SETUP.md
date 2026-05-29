@@ -17,6 +17,7 @@ Set all of these in Project Settings -> Environment Variables:
 - `CLOUDINARY_CLOUD_NAME`
 - `CLOUDINARY_API_KEY`
 - `CLOUDINARY_API_SECRET`
+- `SUPABASE_DB_URL` (required for `verify:rls-smoke` in CI/manual verification)
 
 ## Safety rules
 
@@ -27,7 +28,7 @@ Set all of these in Project Settings -> Environment Variables:
 ## Pre-deploy checklist
 
 1. Confirm Vercel env values are set for Production.
-2. Run `npm run check:env` in deployment pipeline or prebuild step.
+2. Run `npm.cmd run check:env` in deployment pipeline or prebuild step.
 3. Run bootstrap only in secure server context:
-   - `npm run bootstrap:first-admin`
+   - `npm.cmd run bootstrap:first-admin`
 4. Verify auth, company scope, media upload, and report write after deploy.

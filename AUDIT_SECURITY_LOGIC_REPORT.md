@@ -61,9 +61,12 @@ Reason:
 
 Added `secureUrl` hardening:
 - Must be a parseable `https://` URL
+- `companyId`, `projectId`, and `recordId` validated as UUIDs when applicable
+- Module name validated as slug-safe format
 
 Reason:
 - Prevent unsafe URL schemes or malformed values from being stored as media metadata.
+- Prevent malformed scope identifiers from entering media metadata path.
 - Low-risk validation that does not alter valid Cloudinary flow.
 
 ### 4) Security-definer function execute lockdown (new migration)
@@ -81,10 +84,10 @@ Reason:
 
 ## Remaining Risks / Manual Follow-up Needed
 
-1. Demo queue controls still exposed in UI shell:
-- `index.html` buttons `Add demo pending` / `Run demo sync`
-- `ui/app.js` seeds queue entries with `demo-company` and `demo-project`
-- Not auto-removed to avoid changing working UX unexpectedly; recommend environment-gating or admin-only guard.
+1. Demo queue controls are now gated, but still intentionally available for explicit non-production debug:
+- `index.html` demo controls are hidden by default.
+- `ui/app.js` only enables demo controls when `?demo=1` and runtime is non-production.
+- This is expected for local troubleshooting; do not use as production evidence.
 
 2. API rate-limit/abuse controls are not visible in this repo:
 - No explicit request throttling or anti-abuse middleware observed on mutation endpoints.
@@ -106,8 +109,24 @@ All passed in this run.
 ## Changed Files
 
 - `.gitignore`
+- `index.html`
+- `ui/app.js`
+- `scripts/verify-baseline.mjs`
+- `scripts/check-env.mjs`
+- `.env.example`
+- `scripts/run-rls-smoke.mjs`
+- `supabase/tests/rls_smoke_test.sql`
+- `docs/RLS_TEST_RUNBOOK.md`
+- `docs/MEDIA_UPLOAD_API.md`
+- `docs/OFFLINE_QUEUE_STATUS.md`
+- `ENV_SETUP.md`
+- `VERCEL_PRODUCTION_ENV_SETUP.md`
+- `DEPLOYMENT.md`
 - `api/reports-list.js`
+- `api/cloudinary-signature.js`
 - `api/media-register.js`
+- `tools/media-upload.js`
+- `ui/offline-queue.js`
 - `supabase/migrations/20260529100000_lockdown_ensure_company_roles_execute.sql`
 - `SECURITY_LOGIC_AUDIT_AUTO_RESOLVE.md` (added to repo from provided source)
 - `AUDIT_SECURITY_LOGIC_REPORT.md` (this report)
