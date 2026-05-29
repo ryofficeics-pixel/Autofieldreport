@@ -16,6 +16,7 @@ Agent guardrails are also listed in:
 Document authority map:
 
 - `docs/DOC_AUTHORITY.md`
+- `docs/NEW_COMPUTER_HANDOFF.md` (move/resume setup on another computer)
 
 UI baseline:
 

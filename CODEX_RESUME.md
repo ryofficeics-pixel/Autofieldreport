@@ -51,6 +51,8 @@ Set missing env vars, then run:
 3. live auth/company/report/media/offline replay checks
 4. deployment verification on target environment
 
+For changing computers, use `docs/NEW_COMPUTER_HANDOFF.md` and run `npm.cmd run check:workstation` before resuming live verification.
+
 ## Verification commands run
 
 ```bash
