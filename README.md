@@ -17,6 +17,7 @@ Document authority map:
 
 - `docs/DOC_AUTHORITY.md`
 - `docs/NEW_COMPUTER_HANDOFF.md` (move/resume setup on another computer)
+- `docs/CONNECTED_SERVICES.md` (Supabase and Vercel project map)
 
 UI baseline:
 

@@ -6,6 +6,7 @@
   "scripts": {
     "check:env": "node scripts/check-env.mjs",
     "bootstrap:first-admin": "node scripts/bootstrap-first-admin.mjs",
+    "check:workstation": "node scripts/check-workstation.mjs",
     "verify:baseline": "node scripts/verify-baseline.mjs",
     "verify:rls-smoke": "node scripts/run-rls-smoke.mjs",
     "verify:auth-flow": "node scripts/verify-auth-flow.mjs",
